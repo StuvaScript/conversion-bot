@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 2rem;
+}
+
+form {
+  padding: 10px;
+}
+
+input {
+  font-size: 1rem;
+  padding: 5px;
+}
+
+button {
+  font-size: 1rem;
+  padding: 5px;
+}
+
+.display {
+  padding: 10px;
+}
