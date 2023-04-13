@@ -7,63 +7,65 @@ let valuesArray;
 // ---- CONVERSION LOGIC ----
 button.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log(input.value + " input value");
+  console.log(input.value.toLocalString());
   putMyThangDownFlipItAndReverseIt();
-  console.log("new reversed array below");
-  console.log(valuesArray);
-
   loopyDoop();
-
+  addSuffixes();
   anotherFlipper();
-  console.log(valuesArray + " final output");
   display.innerText = valuesArray;
 });
 
 // ---- FUNCTIONS ----
+function putMyThangDownFlipItAndReverseIt() {
+  // Creates an array of the input numbers and reverses their order.
+  valuesArray = input.value.split("").reverse();
+}
+
 function loopyDoop() {
   // Loops thru the array
   for (let i = 0; i < valuesArray.length; i++) {
-    // At the different array positions, call on the correct function
+    // At the different array positions, calls on the correct function.
     switch (i) {
       case 0:
-        console.log(valuesArray[i] + " zeroth");
+      case 2:
+      case 3:
+      case 5:
+      case 6:
+      case 8:
+      case 9:
         singleDigits(valuesArray[i], i);
         break;
       case 1:
-        console.log(valuesArray[i] + " first");
-        tensPosition(valuesArray[i], i);
+      case 4:
+      case 7:
+        if (valuesArray[i] === "1") {
+          specialTensPosition(i);
+        } else {
+          tensPosition(valuesArray[i], i);
+        }
         break;
+    }
+  }
+}
+
+function addSuffixes() {
+  // Loops thru the array
+  for (let i = 0; i < valuesArray.length; i++) {
+    // At the different array positions, adds the correct suffixes.
+    switch (i) {
       case 2:
-        console.log(valuesArray[i] + " second");
-        singleDigits(valuesArray[i], i);
+      case 5:
+      case 8:
+        valuesArray[i] = valuesArray[i] + " hundred";
         break;
       case 3:
-        console.log(valuesArray[i] + " third");
-        singleDigits(valuesArray[i], i);
-        break;
-      case 4:
-        console.log(valuesArray[i] + " fourth");
-        tensPosition(valuesArray[i], i);
-        break;
-      case 5:
-        console.log(valuesArray[i] + " fifth");
-        singleDigits(valuesArray[i], i);
+        valuesArray[i] = valuesArray[i] + " thousand";
         break;
       case 6:
-        console.log(valuesArray[i] + " sixth");
-        singleDigits(valuesArray[i], i);
-        break;
-      case 7:
-        console.log(valuesArray[i] + " seventh");
-        tensPosition(valuesArray[i], i);
-        break;
-      case 8:
-        console.log(valuesArray[i] + " eighth");
-        singleDigits(valuesArray[i], i);
+        valuesArray[i] = valuesArray[i] + " million";
         break;
       case 9:
-        console.log(valuesArray[i] + " ninth");
-        singleDigits(valuesArray[i], i);
+        valuesArray[i] = valuesArray[i] + " billion";
         break;
     }
   }
@@ -72,11 +74,6 @@ function loopyDoop() {
 function anotherFlipper() {
   // Reverses the array and joins the array values together into a single string.
   valuesArray = valuesArray.reverse().join(" ");
-}
-
-function putMyThangDownFlipItAndReverseIt() {
-  // Creates an array of the input numbers and reverses their order.
-  valuesArray = input.value.split("").reverse();
 }
 
 function singleDigits(digit, position) {
@@ -140,6 +137,45 @@ function tensPosition(digit, position) {
       break;
     case "9":
       valuesArray[position] = "ninety";
+      break;
+  }
+}
+
+function specialTensPosition(position) {
+  // 'Position' is the location in the array
+  // Removes the '1' from the array's current position.
+  valuesArray[position] = "";
+  // Checks the previous array position value and changes it to the correct value.
+  switch (valuesArray[position - 1]) {
+    case "0":
+      valuesArray[position - 1] = "ten";
+      break;
+    case "one":
+      valuesArray[position - 1] = "eleven";
+      break;
+    case "two":
+      valuesArray[position - 1] = "twelve";
+      break;
+    case "three":
+      valuesArray[position - 1] = "thirteen";
+      break;
+    case "four":
+      valuesArray[position - 1] = "fourteen";
+      break;
+    case "five":
+      valuesArray[position - 1] = "fifteen";
+      break;
+    case "six":
+      valuesArray[position - 1] = "sixteen";
+      break;
+    case "seven":
+      valuesArray[position - 1] = "seventeen";
+      break;
+    case "eight":
+      valuesArray[position - 1] = "eighteen";
+      break;
+    case "nine":
+      valuesArray[position - 1] = "nineteen";
       break;
   }
 }
