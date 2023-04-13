@@ -79,6 +79,9 @@ function singleDigits(digit, position) {
   // 'Digit' is the input value
   // 'Position' is the location in the array
   switch (digit) {
+    case "0":
+      valuesArray[position] = "";
+      break;
     case "1":
       valuesArray[position] = "one";
       break;
