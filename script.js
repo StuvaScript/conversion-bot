@@ -7,7 +7,6 @@ let valuesArray;
 // ---- CONVERSION LOGIC ----
 button.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log(input.value.toLocalString());
   putMyThangDownFlipItAndReverseIt();
   loopyDoop();
   addSuffixes();
