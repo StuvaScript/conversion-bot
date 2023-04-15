@@ -8,10 +8,17 @@ let valuesArray;
 button.addEventListener("click", (e) => {
   e.preventDefault();
   putMyThangDownFlipItAndReverseIt();
+  console.log(valuesArray);
   loopyDoop();
-  addSuffixes();
+  console.log(valuesArray);
+
+  // addSuffixes();
   anotherFlipper();
+  console.log(valuesArray);
   display.innerText = valuesArray;
+  if (display.innerText === "") {
+    display.innerText = "zero";
+  }
 });
 
 // ---- FUNCTIONS ----
@@ -116,6 +123,9 @@ function tensPosition(digit, position) {
   // 'Digit' is the input value
   // 'Position' is the location in the array
   switch (digit) {
+    case "0":
+      valuesArray[position] = "";
+      break;
     case "2":
       valuesArray[position] = "twenty";
       break;
