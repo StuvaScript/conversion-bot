@@ -8,13 +8,17 @@ let valuesArray;
 button.addEventListener("click", (e) => {
   e.preventDefault();
   putMyThangDownFlipItAndReverseIt();
-  console.log(valuesArray);
+  // console.log("flip");
+  // console.log(valuesArray);
   loopyDoop();
-  console.log(valuesArray);
-
+  // console.log("post loop");
+  // console.log(valuesArray);
   // addSuffixes();
+  // console.log("add suffixes");
+  // console.log(valuesArray);
   anotherFlipper();
-  console.log(valuesArray);
+  // console.log("other flipper");
+  // console.log(valuesArray);
   display.innerText = valuesArray;
   if (display.innerText === "") {
     display.innerText = "zero";
@@ -39,14 +43,20 @@ function loopyDoop() {
       case 6:
       case 8:
       case 9:
+        // console.log("singles");
+        // console.log(valuesArray);
         singleDigits(valuesArray[i], i);
         break;
       case 1:
       case 4:
       case 7:
         if (valuesArray[i] === "1") {
+          // console.log("special tens");
+          // console.log(valuesArray);
           specialTensPosition(i);
         } else {
+          // console.log("tens");
+          // console.log(valuesArray);
           tensPosition(valuesArray[i], i);
         }
         break;
@@ -55,23 +65,36 @@ function loopyDoop() {
 }
 
 function addSuffixes() {
+  // console.log(valuesArray[valuesArray.length - 1] + " turdz");
+
   // Loops thru the array
   for (let i = 0; i < valuesArray.length; i++) {
+    if (valuesArray[valuesArray.length - 1] !== "") {
+      console.log("buttz");
+    }
     // At the different array positions, adds the correct suffixes.
     switch (i) {
       case 2:
       case 5:
       case 8:
-        valuesArray[i] = valuesArray[i] + " hundred";
+        if (valuesArray[i] !== "") {
+          valuesArray[i] = valuesArray[i] + " hundred";
+        }
         break;
       case 3:
-        valuesArray[i] = valuesArray[i] + " thousand";
+        if (valuesArray[i] !== "") {
+          valuesArray[i] = valuesArray[i] + " thousand";
+        }
         break;
       case 6:
-        valuesArray[i] = valuesArray[i] + " million";
+        if (valuesArray[i] !== "") {
+          valuesArray[i] = valuesArray[i] + " million";
+        }
         break;
       case 9:
-        valuesArray[i] = valuesArray[i] + " billion";
+        if (valuesArray[i] !== "") {
+          valuesArray[i] = valuesArray[i] + " billion";
+        }
         break;
     }
   }
@@ -85,109 +108,55 @@ function anotherFlipper() {
 function singleDigits(digit, position) {
   // 'Digit' is the input value
   // 'Position' is the location in the array
-  switch (digit) {
-    case "0":
-      valuesArray[position] = "";
-      break;
-    case "1":
-      valuesArray[position] = "one";
-      break;
-    case "2":
-      valuesArray[position] = "two";
-      break;
-    case "3":
-      valuesArray[position] = "three";
-      break;
-    case "4":
-      valuesArray[position] = "four";
-      break;
-    case "5":
-      valuesArray[position] = "five";
-      break;
-    case "6":
-      valuesArray[position] = "six";
-      break;
-    case "7":
-      valuesArray[position] = "seven";
-      break;
-    case "8":
-      valuesArray[position] = "eight";
-      break;
-    case "9":
-      valuesArray[position] = "nine";
-      break;
-  }
+  singlesObj = {
+    0: "",
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
+  };
+  valuesArray[position] = singlesObj[digit];
 }
 
 function tensPosition(digit, position) {
   // 'Digit' is the input value
   // 'Position' is the location in the array
-  switch (digit) {
-    case "0":
-      valuesArray[position] = "";
-      break;
-    case "2":
-      valuesArray[position] = "twenty";
-      break;
-    case "3":
-      valuesArray[position] = "thirty";
-      break;
-    case "4":
-      valuesArray[position] = "forty";
-      break;
-    case "5":
-      valuesArray[position] = "fifty";
-      break;
-    case "6":
-      valuesArray[position] = "sixty";
-      break;
-    case "7":
-      valuesArray[position] = "seventy";
-      break;
-    case "8":
-      valuesArray[position] = "eighty";
-      break;
-    case "9":
-      valuesArray[position] = "ninety";
-      break;
-  }
+  tensObj = {
+    0: "",
+    2: "twenty",
+    3: "thirty",
+    4: "forty",
+    5: "fifty",
+    6: "sixty",
+    7: "seventy",
+    8: "eighty",
+    9: "ninety",
+  };
+  valuesArray[position] = tensObj[digit];
 }
 
 function specialTensPosition(position) {
   // 'Position' is the location in the array
   // Removes the '1' from the array's current position.
   valuesArray[position] = "";
+
+  specialTensObj = {
+    "": "ten",
+    one: "eleven",
+    two: "twelve",
+    three: "thirteen",
+    four: "fourteen",
+    five: "fifteen",
+    six: "sixteen",
+    seven: "seventeen",
+    eight: "eighteen",
+    nine: "nineteen",
+  };
   // Checks the previous array position value and changes it to the correct value.
-  switch (valuesArray[position - 1]) {
-    case "0":
-      valuesArray[position - 1] = "ten";
-      break;
-    case "one":
-      valuesArray[position - 1] = "eleven";
-      break;
-    case "two":
-      valuesArray[position - 1] = "twelve";
-      break;
-    case "three":
-      valuesArray[position - 1] = "thirteen";
-      break;
-    case "four":
-      valuesArray[position - 1] = "fourteen";
-      break;
-    case "five":
-      valuesArray[position - 1] = "fifteen";
-      break;
-    case "six":
-      valuesArray[position - 1] = "sixteen";
-      break;
-    case "seven":
-      valuesArray[position - 1] = "seventeen";
-      break;
-    case "eight":
-      valuesArray[position - 1] = "eighteen";
-      break;
-    case "nine":
-      valuesArray[position - 1] = "nineteen";
-      break;
-  }
+  valuesArray[position - 1] = specialTensObj[valuesArray[position - 1]];
 }
