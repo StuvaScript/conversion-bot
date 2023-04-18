@@ -7,18 +7,18 @@ let valuesArray;
 // ---- CONVERSION LOGIC ----
 button.addEventListener("click", (e) => {
   e.preventDefault();
-  putMyThangDownFlipItAndReverseIt();
-  // console.log("flip");
-  // console.log(valuesArray);
+  // Removes unnecessary zeros from the beginning of the input value.
+  input.value = input.value.replace(/^0+/, "");
+  // This limits the input value to the single billions.
+  if (input.value.length > 10) {
+    return;
+  }
+  // Creates an array of the input numbers and reverses their order.
+  valuesArray = input.value.split("").reverse();
   loopyDoop();
-  // console.log("post loop");
-  // console.log(valuesArray);
-  // addSuffixes();
-  // console.log("add suffixes");
-  // console.log(valuesArray);
-  anotherFlipper();
-  // console.log("other flipper");
-  // console.log(valuesArray);
+  addSuffixes();
+  // Reverses the array and joins the array values together into a single string.
+  valuesArray = valuesArray.reverse().join(" ");
   display.innerText = valuesArray;
   if (display.innerText === "") {
     display.innerText = "zero";
@@ -26,11 +26,6 @@ button.addEventListener("click", (e) => {
 });
 
 // ---- FUNCTIONS ----
-function putMyThangDownFlipItAndReverseIt() {
-  // Creates an array of the input numbers and reverses their order.
-  valuesArray = input.value.split("").reverse();
-}
-
 function loopyDoop() {
   // Loops thru the array
   for (let i = 0; i < valuesArray.length; i++) {
@@ -43,21 +38,15 @@ function loopyDoop() {
       case 6:
       case 8:
       case 9:
-        // console.log("singles");
-        // console.log(valuesArray);
         singleDigits(valuesArray[i], i);
         break;
       case 1:
       case 4:
       case 7:
         if (valuesArray[i] === "1") {
-          // console.log("special tens");
-          // console.log(valuesArray);
-          specialTensPosition(i);
+          teensDigits(i);
         } else {
-          // console.log("tens");
-          // console.log(valuesArray);
-          tensPosition(valuesArray[i], i);
+          extendedTensDigits(valuesArray[i], i);
         }
         break;
     }
@@ -65,13 +54,8 @@ function loopyDoop() {
 }
 
 function addSuffixes() {
-  // console.log(valuesArray[valuesArray.length - 1] + " turdz");
-
   // Loops thru the array
   for (let i = 0; i < valuesArray.length; i++) {
-    if (valuesArray[valuesArray.length - 1] !== "") {
-      console.log("buttz");
-    }
     // At the different array positions, adds the correct suffixes.
     switch (i) {
       case 2:
@@ -82,27 +66,37 @@ function addSuffixes() {
         }
         break;
       case 3:
-        if (valuesArray[i] !== "") {
-          valuesArray[i] = valuesArray[i] + " thousand";
+        if (
+          valuesArray[i] === "" &&
+          valuesArray[i + 1] === "" &&
+          valuesArray[i + 2] === ""
+        ) {
+          break;
         }
+        valuesArray[i] = valuesArray[i] + " thousand";
         break;
       case 6:
-        if (valuesArray[i] !== "") {
-          valuesArray[i] = valuesArray[i] + " million";
+        if (
+          valuesArray[i] === "" &&
+          valuesArray[i + 1] === "" &&
+          valuesArray[i + 2] === ""
+        ) {
+          break;
         }
+        valuesArray[i] = valuesArray[i] + " million";
         break;
       case 9:
-        if (valuesArray[i] !== "") {
-          valuesArray[i] = valuesArray[i] + " billion";
+        if (
+          valuesArray[i] === "" &&
+          valuesArray[i + 1] === "" &&
+          valuesArray[i + 2] === ""
+        ) {
+          break;
         }
+        valuesArray[i] = valuesArray[i] + " billion";
         break;
     }
   }
-}
-
-function anotherFlipper() {
-  // Reverses the array and joins the array values together into a single string.
-  valuesArray = valuesArray.reverse().join(" ");
 }
 
 function singleDigits(digit, position) {
@@ -123,7 +117,28 @@ function singleDigits(digit, position) {
   valuesArray[position] = singlesObj[digit];
 }
 
-function tensPosition(digit, position) {
+function teensDigits(position) {
+  // 'Position' is the location in the array
+  // Removes the '1' from the array's current position.
+  valuesArray[position] = "";
+
+  teensObj = {
+    "": "ten",
+    one: "eleven",
+    two: "twelve",
+    three: "thirteen",
+    four: "fourteen",
+    five: "fifteen",
+    six: "sixteen",
+    seven: "seventeen",
+    eight: "eighteen",
+    nine: "nineteen",
+  };
+  // Checks the previous array position value and changes it to the correct value.
+  valuesArray[position - 1] = teensObj[valuesArray[position - 1]];
+}
+
+function extendedTensDigits(digit, position) {
   // 'Digit' is the input value
   // 'Position' is the location in the array
   tensObj = {
@@ -138,25 +153,4 @@ function tensPosition(digit, position) {
     9: "ninety",
   };
   valuesArray[position] = tensObj[digit];
-}
-
-function specialTensPosition(position) {
-  // 'Position' is the location in the array
-  // Removes the '1' from the array's current position.
-  valuesArray[position] = "";
-
-  specialTensObj = {
-    "": "ten",
-    one: "eleven",
-    two: "twelve",
-    three: "thirteen",
-    four: "fourteen",
-    five: "fifteen",
-    six: "sixteen",
-    seven: "seventeen",
-    eight: "eighteen",
-    nine: "nineteen",
-  };
-  // Checks the previous array position value and changes it to the correct value.
-  valuesArray[position - 1] = specialTensObj[valuesArray[position - 1]];
 }
