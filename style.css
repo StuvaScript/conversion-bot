@@ -18,6 +18,7 @@ body {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 2px;
+  text-align: center;
   padding: 10vh;
   height: 80vh;
   font-size: 2rem;
@@ -38,7 +39,6 @@ h1 {
 
 .instructions {
   width: 60vw;
-  text-align: center;
   line-height: 3rem;
 }
 
@@ -58,7 +58,6 @@ input {
 
 button {
   font-size: 1.5rem;
-  padding: 10px;
   background: var(--custom-color);
   border-radius: 20px;
   border: none;
@@ -67,4 +66,60 @@ button {
 
 button:hover {
   background: linear-gradient(var(--custom-color), var(--darker-version));
+}
+
+@media (max-width: 1000px) {
+  body {
+    letter-spacing: 2px;
+    padding: 10vh;
+    font-size: 1.8rem;
+    gap: 60px;
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+
+  .instructions {
+    width: 80vw;
+    line-height: 2.5rem;
+  }
+
+  form {
+    gap: 15px;
+  }
+
+  input {
+    font-size: 1.8rem;
+    padding: 6px;
+  }
+
+  button {
+    font-size: 1.3rem;
+    padding: 5px 20px;
+  }
+}
+
+@media (max-width: 550px) {
+  body {
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+    gap: 50px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .instructions {
+    line-height: 2rem;
+  }
+
+  form {
+    gap: 10px;
+  }
+
+  input {
+    font-size: 1.5rem;
+  }
 }
